@@ -6,6 +6,11 @@ public class TaskService
 {
     public TaskItem CreerTache(string titre)
     {
+        if (string.IsNullOrWhiteSpace(titre))
+        {
+            throw new ArgumentException("Le titre est obligatoire.", nameof(titre));
+        }
+
         return new TaskItem
         {
             Id = Guid.NewGuid(),

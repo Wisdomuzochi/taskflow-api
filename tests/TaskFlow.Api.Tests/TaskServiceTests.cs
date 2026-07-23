@@ -2,6 +2,7 @@ using TaskFlow.Api.Models;
 using TaskFlow.Api.Services;
 
 namespace TaskFlow.Api.Tests;
+
 public class TaskServiceTests
 {
     [Fact]
@@ -18,4 +19,15 @@ public class TaskServiceTests
         Assert.Equal(TaskItemStatus.AFaire, tache.Statut);
         Assert.NotEqual(Guid.Empty, tache.Id);
     }
+
+    [Fact]
+    public void CreerTache_AvecTitreVide_LeveUneException()
+    {
+        // Arrange
+        var service = new TaskService();
+
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() => service.CreerTache(""));
+    }
 }
+
