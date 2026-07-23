@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{273FC8D9-90E7-4586-8622-107E9AB71523}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskFlow.Api", "src\TaskFlow.Api\TaskFlow.Api.csproj", "{0F70A08E-1EF2-4E9C-AD44-7C8F95DC16B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{95EAF47C-84FD-48AB-AB4C-5F394525CDA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskFlow.Api.Tests", "tests\TaskFlow.Api.Tests\TaskFlow.Api.Tests.csproj", "{296515CC-E7E0-4CB8-9636-2C1F664EAB4F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F70A08E-1EF2-4E9C-AD44-7C8F95DC16B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F70A08E-1EF2-4E9C-AD44-7C8F95DC16B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F70A08E-1EF2-4E9C-AD44-7C8F95DC16B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F70A08E-1EF2-4E9C-AD44-7C8F95DC16B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{296515CC-E7E0-4CB8-9636-2C1F664EAB4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{296515CC-E7E0-4CB8-9636-2C1F664EAB4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{296515CC-E7E0-4CB8-9636-2C1F664EAB4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{296515CC-E7E0-4CB8-9636-2C1F664EAB4F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0F70A08E-1EF2-4E9C-AD44-7C8F95DC16B2} = {273FC8D9-90E7-4586-8622-107E9AB71523}
+		{296515CC-E7E0-4CB8-9636-2C1F664EAB4F} = {95EAF47C-84FD-48AB-AB4C-5F394525CDA3}
+	EndGlobalSection
+EndGlobal
