@@ -32,7 +32,7 @@ public class TaskServiceTests
 
     [Fact]
     public void ListerTaches_ApresCreationDeDeuxTaches_RetourneLesDeuxTaches()
-   {
+    {
         // Arrange
         var service = new TaskService();
         service.CreerTache("Tâche 1");
@@ -43,6 +43,33 @@ public class TaskServiceTests
 
         // Assert
         Assert.Equal(2, taches.Count());
-   }
+    }
+   
+   [Fact]
+   public void ChangerStatut_AvecIdExistant_MetAJourLeStatut()
+   {
+        // Arrange
+        var service = new TaskService();
+        var tache = service.CreerTache("Tâche à déplacer");
+
+        // Act
+        var tacheModifiee = service.ChangerStatut(tache.Id, TaskItemStatus.EnCours);
+
+        // Assert
+        Assert.Equal(TaskItemStatus.EnCours, tacheModifiee!.Statut);
+    }
+
+    [Fact]
+    public void ChangerStatut_AvecIdInexistant_RetourneNull()
+   {
+         // Arrange
+         var service = new TaskService();
+
+         // Act
+         var resultat = service.ChangerStatut(Guid.NewGuid(), TaskItemStatus.EnCours);
+
+         // Assert
+         Assert.Null(resultat);
+    }  
 }
 

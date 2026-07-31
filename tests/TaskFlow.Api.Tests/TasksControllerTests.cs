@@ -50,7 +50,7 @@ public class TasksControllerTests : IClassFixture<WebApplicationFactory<Program>
         // Arrange
         var requete = new { Titre = "Tâche à retrouver" };
         await _client.PostAsJsonAsync("/api/tasks", requete);
- 
+
         // Act
         var reponse = await _client.GetAsync("/api/tasks");
 
@@ -60,5 +60,37 @@ public class TasksControllerTests : IClassFixture<WebApplicationFactory<Program>
         var taches = await reponse.Content.ReadFromJsonAsync<List<TaskItem>>();
         Assert.NotNull(taches);
         Assert.Contains(taches!, t => t.Titre == "Tâche à retrouver");
+    }
+    
+    [Fact]
+    public async Task PutTasks_AvecIdExistant_ChangeLeStatut()
+   {
+        // Arrange
+        var creation = new { Titre = "Tâche à modifier" };
+        var reponseCreation = await _client.PostAsJsonAsync("/api/tasks", creation);
+        var tacheCreee = await reponseCreation.Content.ReadFromJsonAsync<TaskItem>();
+
+        var requeteModif = new { NouveauStatut = TaskItemStatus.EnCours };
+
+        // Act
+        var reponse = await _client.PutAsJsonAsync($"/api/tasks/{tacheCreee!.Id}", requeteModif);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, reponse.StatusCode);
+        var tacheModifiee = await reponse.Content.ReadFromJsonAsync<TaskItem>();
+        Assert.Equal(TaskItemStatus.EnCours, tacheModifiee!.Statut);
+    }
+
+    [Fact]
+    public async Task PutTasks_AvecIdInexistant_Retourne404()
+    {
+        // Arrange
+        var requeteModif = new { NouveauStatut = TaskItemStatus.EnCours };
+
+        // Act
+        var reponse = await _client.PutAsJsonAsync($"/api/tasks/{Guid.NewGuid()}", requeteModif);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.NotFound, reponse.StatusCode);
     }
 }

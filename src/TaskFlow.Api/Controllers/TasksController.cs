@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using TaskFlow.Api.Models;
 using TaskFlow.Api.Services;
 
 namespace TaskFlow.Api.Controllers;
@@ -39,4 +40,23 @@ public class TasksController : ControllerBase
         var taches = _taskService.ListerTaches();
         return Ok(taches);
     }
+
+    public class ChangerStatutRequete
+    {
+      public TaskItemStatus NouveauStatut { get; set; }
+
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult ChangerStatut(Guid id, [FromBody] ChangerStatutRequete requete)
+    {
+        var tache = _taskService.ChangerStatut(id, requete.NouveauStatut);
+
+        if (tache is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(tache);
+    } 
 }

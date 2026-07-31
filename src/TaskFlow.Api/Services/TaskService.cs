@@ -29,4 +29,18 @@ public class TaskService
     {
         return _taches;
     }
+
+    public TaskItem? ChangerStatut(Guid id, TaskItemStatus nouveauStatut)
+    {
+        var tache = _taches.FirstOrDefault(t => t.Id == id);
+
+        if (tache is null)
+        {
+            return null;
+        }
+
+        tache.Statut = nouveauStatut;
+
+        return tache;
+    }
 }
