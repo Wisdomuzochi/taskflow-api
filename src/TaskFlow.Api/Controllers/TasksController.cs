@@ -59,4 +59,17 @@ public class TasksController : ControllerBase
 
         return Ok(tache);
     } 
+
+    [HttpDelete("{id}")]
+    public IActionResult SupprimerTache(Guid id)
+    {
+        var succes = _taskService.SupprimerTache(id);
+
+        if (!succes)
+        {
+           return NotFound();
+        }
+
+        return NoContent();
+    }
 }

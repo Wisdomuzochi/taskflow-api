@@ -61,15 +61,43 @@ public class TaskServiceTests
 
     [Fact]
     public void ChangerStatut_AvecIdInexistant_RetourneNull()
-   {
-         // Arrange
-         var service = new TaskService();
+    {
+        // Arrange
+        var service = new TaskService();
 
-         // Act
-         var resultat = service.ChangerStatut(Guid.NewGuid(), TaskItemStatus.EnCours);
+        // Act
+        var resultat = service.ChangerStatut(Guid.NewGuid(), TaskItemStatus.EnCours);
 
-         // Assert
-         Assert.Null(resultat);
+        // Assert
+        Assert.Null(resultat);
     }  
+    
+    [Fact]
+    public void SupprimerTache_AvecIdExistant_RetourneTrue()
+    {
+        // Arrange
+        var service = new TaskService();
+        var tache = service.CreerTache("Tâche à supprimer");
+
+        // Act
+        var resultat = service.SupprimerTache(tache.Id);
+
+        // Assert
+        Assert.True(resultat);
+        Assert.Empty(service.ListerTaches());
+    } 
+
+    [Fact]
+    public void SupprimerTache_AvecIdInexistant_RetourneFalse()
+    {
+        // Arrange
+        var service = new TaskService();
+
+        // Act
+        var resultat = service.SupprimerTache(Guid.NewGuid());
+
+        // Assert
+        Assert.False(resultat);
+    }
 }
 

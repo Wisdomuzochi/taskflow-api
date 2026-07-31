@@ -93,4 +93,29 @@ public class TasksControllerTests : IClassFixture<WebApplicationFactory<Program>
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, reponse.StatusCode);
     }
+
+    [Fact]
+    public async Task DeleteTasks_AvecIdExistant_Retourne204()
+    {
+        // Arrange
+        var creation = new { Titre = "Tâche à supprimer" };
+        var reponseCreation = await _client.PostAsJsonAsync("/api/tasks", creation);
+        var tacheCreee = await reponseCreation.Content.ReadFromJsonAsync<TaskItem>();
+
+        // Act
+        var reponse = await _client.DeleteAsync($"/api/tasks/{tacheCreee!.Id}");
+
+        // Assert
+        Assert.Equal(HttpStatusCode.NoContent, reponse.StatusCode);
+    }
+
+    [Fact]
+    public async Task DeleteTasks_AvecIdInexistant_Retourne404()
+    {
+        // Act
+        var reponse = await _client.DeleteAsync($"/api/tasks/{Guid.NewGuid()}");
+
+        // Assert
+        Assert.Equal(HttpStatusCode.NotFound, reponse.StatusCode);
+    }
 }

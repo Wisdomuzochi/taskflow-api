@@ -43,4 +43,18 @@ public class TaskService
 
         return tache;
     }
+
+    public bool SupprimerTache(Guid id)
+    {
+        var tache = _taches.FirstOrDefault(t => t.Id == id);
+
+        if (tache is null)
+        {
+          return false;
+        }
+
+        _taches.Remove(tache);
+
+       return true;
+    }
 }
