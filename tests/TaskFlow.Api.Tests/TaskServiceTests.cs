@@ -29,5 +29,20 @@ public class TaskServiceTests
         // Act & Assert
         Assert.Throws<ArgumentException>(() => service.CreerTache(""));
     }
+
+    [Fact]
+    public void ListerTaches_ApresCreationDeDeuxTaches_RetourneLesDeuxTaches()
+   {
+        // Arrange
+        var service = new TaskService();
+        service.CreerTache("Tâche 1");
+        service.CreerTache("Tâche 2");
+
+        // Act
+        var taches = service.ListerTaches();
+
+        // Assert
+        Assert.Equal(2, taches.Count());
+   }
 }
 
