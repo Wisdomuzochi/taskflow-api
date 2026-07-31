@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<TaskFlow.Api.Services.TaskService>();
+builder.Services.AddSingleton<TaskFlow.Api.Services.TaskService>();
 
 var app = builder.Build();
 

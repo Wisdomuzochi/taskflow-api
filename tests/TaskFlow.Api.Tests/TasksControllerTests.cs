@@ -43,4 +43,22 @@ public class TasksControllerTests : IClassFixture<WebApplicationFactory<Program>
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, reponse.StatusCode);
     }
+
+    [Fact]
+    public async Task GetTasks_ApresUnPost_RetourneLaTacheCree()
+    {
+        // Arrange
+        var requete = new { Titre = "Tâche à retrouver" };
+        await _client.PostAsJsonAsync("/api/tasks", requete);
+ 
+        // Act
+        var reponse = await _client.GetAsync("/api/tasks");
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, reponse.StatusCode);
+
+        var taches = await reponse.Content.ReadFromJsonAsync<List<TaskItem>>();
+        Assert.NotNull(taches);
+        Assert.Contains(taches!, t => t.Titre == "Tâche à retrouver");
+    }
 }

@@ -32,4 +32,11 @@ public class TasksController : ControllerBase
             return BadRequest();
         }
     }
+
+    [HttpGet]
+    public IActionResult ListerTaches()
+    {
+        var taches = _taskService.ListerTaches();
+        return Ok(taches);
+    }
 }
