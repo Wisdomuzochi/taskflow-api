@@ -1,0 +1,46 @@
+using System.Net;
+using System.Net.Http.Json;
+using Microsoft.AspNetCore.Mvc.Testing;
+using TaskFlow.Api.Models;
+
+namespace TaskFlow.Api.Tests;
+
+public class TasksControllerTests : IClassFixture<WebApplicationFactory<Program>>
+{
+    private readonly HttpClient _client;
+
+    public TasksControllerTests(WebApplicationFactory<Program> factory)
+    {
+        _client = factory.CreateClient();
+    }
+
+    [Fact]
+    public async Task PostTasks_AvecTitreValide_Retourne201EtLaTache()
+    {
+        // Arrange
+        var requete = new { Titre = "Corriger le bug de login" };
+
+        // Act
+        var reponse = await _client.PostAsJsonAsync("/api/tasks", requete);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.Created, reponse.StatusCode);
+
+        var tache = await reponse.Content.ReadFromJsonAsync<TaskItem>();
+        Assert.NotNull(tache);
+        Assert.Equal("Corriger le bug de login", tache!.Titre);
+    }
+
+    [Fact]
+    public async Task PostTasks_AvecTitreVide_Retourne400()
+    {
+        // Arrange
+        var requete = new { Titre = "" };
+
+        // Act
+        var reponse = await _client.PostAsJsonAsync("/api/tasks", requete);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.BadRequest, reponse.StatusCode);
+    }
+}
